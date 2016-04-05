@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RCC version="1.0">
+    <qresource>
+        <file>../images/arrow-up-512px.svg</file>
+        <file>../images/arrow-down-512px.svg</file>
+        <file>../images/arrow-left-512px.svg</file>
+        <file>../images/arrow-right-512px.svg</file>
+        <file>../images/cross-512px.svg</file>
+    </qresource>
+</RCC>
