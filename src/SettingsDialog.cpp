@@ -43,6 +43,9 @@ SettingsDialog::SettingsDialog(QObject *parent)
 
 
 	setLayout(mainLayout);
+
+    this->setWindowState(Qt::WindowFullScreen);
+
 }
 
 QString SettingsDialog::getIP()

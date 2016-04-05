@@ -40,15 +40,15 @@ MainWindow::MainWindow(QObject *parent)
     pbRight = new QPushButton;
     pbStop  = new QPushButton;
 
-    QPixmap pmUp = QPixmap(":./images/arrow-up-512px.svg");
+    QPixmap pmUp = QPixmap(/*"../images/arrow-up-512px.svg"*/"tank.png");
     pbUp->setIcon(pmUp);
-    QPixmap pmDown = QPixmap(":./images/arrow-down-512px.svg");
+    QPixmap pmDown = QPixmap("../images/arrow-down-512px.svg");
     pbDown->setIcon(pmDown);
-    QPixmap pmLeft = QPixmap(":./images/arrow-left-512px.svg");
+    QPixmap pmLeft = QPixmap("../images/arrow-left-512px.svg");
     pbLeft->setIcon(pmLeft);
-    QPixmap pmRight = QPixmap(":./images/arrow-right-512px.svg");
+    QPixmap pmRight = QPixmap("../images/arrow-right-512px.svg");
     pbRight->setIcon(pmRight);
-    QPixmap pmStop = QPixmap(":./images/cross-512px.svg");
+    QPixmap pmStop = QPixmap("../images/cross-512px.svg");
     pbStop->setIcon(pmStop);   
     
     connect(pbUp, SIGNAL(clicked()), this, SLOT(slotUp()));
