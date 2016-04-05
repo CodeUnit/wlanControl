@@ -34,23 +34,34 @@ MainWindow::MainWindow(QObject *parent)
 
 
 
-    pbUp    = new QPushButton(" UP  ");
-    pbDown  = new QPushButton("DOWN ");
-    pbLeft  = new QPushButton("LEFT ");
-    pbRight = new QPushButton("RIGHT");
-    pbStop  = new QPushButton("STOP ");
+    pbUp    = new QPushButton;
+    pbDown  = new QPushButton;
+    pbLeft  = new QPushButton;
+    pbRight = new QPushButton;
+    pbStop  = new QPushButton;
 
+    QPixmap pmUp = QPixmap(":./images/arrow-up-512px.svg");
+    pbUp->setIcon(pmUp);
+    QPixmap pmDown = QPixmap(":./images/arrow-down-512px.svg");
+    pbDown->setIcon(pmDown);
+    QPixmap pmLeft = QPixmap(":./images/arrow-left-512px.svg");
+    pbLeft->setIcon(pmLeft);
+    QPixmap pmRight = QPixmap(":./images/arrow-right-512px.svg");
+    pbRight->setIcon(pmRight);
+    QPixmap pmStop = QPixmap(":./images/cross-512px.svg");
+    pbStop->setIcon(pmStop);   
+    
     connect(pbUp, SIGNAL(clicked()), this, SLOT(slotUp()));
     connect(pbDown, SIGNAL(clicked()), this, SLOT(slotDown()));
     connect(pbLeft, SIGNAL(clicked()), this, SLOT(slotLeft()));
     connect(pbRight, SIGNAL(clicked()), this, SLOT(slotRight()));
     connect(pbStop, SIGNAL(clicked()), this, SLOT(slotStop()));
 
-	pbUp->setEnabled(false);
-	pbDown->setEnabled(false);
-	pbLeft->setEnabled(false);
-	pbRight->setEnabled(false);
-	pbStop->setEnabled(false);
+    pbUp->setEnabled(false);
+    pbDown->setEnabled(false);
+    pbLeft->setEnabled(false);
+    pbRight->setEnabled(false);
+    pbStop->setEnabled(false);
 
 
     QGridLayout *glButtons = new QGridLayout;
@@ -152,25 +163,26 @@ void MainWindow::setConnected(bool state)
 
 void MainWindow::slotUp()
 {
-	tcpSocket->write("v");
+    tcpSocket->write("v\n");
 }
 
 void MainWindow::slotDown()
 {
-	tcpSocket->write("b");
+	tcpSocket->write("b\n");
 }
 
 void MainWindow::slotLeft()
 {
-	tcpSocket->write("l");
+	tcpSocket->write("l\n");
 }
 
 void MainWindow::slotRight()
 {
-	tcpSocket->write("r");
+	tcpSocket->write("r\n");
 }
 
 void MainWindow::slotStop()
 {
-	tcpSocket->write("s");
+    
+    tcpSocket->write("s\n");
 }
