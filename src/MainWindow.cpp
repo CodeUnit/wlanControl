@@ -9,6 +9,7 @@
 
 MainWindow::MainWindow(QObject *parent)
 {
+    Q_UNUSED(parent);
 
 	tcpSocket = new QTcpSocket;
 	connect(tcpSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
@@ -63,6 +64,12 @@ MainWindow::MainWindow(QObject *parent)
     pbRight->setEnabled(false);
     pbStop->setEnabled(false);
 
+    pbUp->setMinimumHeight(pbUp->sizeHint().width());
+    pbDown->setMinimumHeight(pbDown->sizeHint().width());
+    pbLeft->setMinimumHeight(pbLeft->sizeHint().width());
+    pbRight->setMinimumHeight(pbRight->sizeHint().width());
+    pbStop->setMinimumHeight(pbStop->sizeHint().width());
+
 
     QGridLayout *glButtons = new QGridLayout;
     glButtons->addWidget(pbUp,    0, 1);
@@ -92,7 +99,6 @@ MainWindow::MainWindow(QObject *parent)
 
     setCentralWidget(gridLayout);
 
-    qDebug() << dialog.getIP();
 }
 
 
@@ -112,16 +118,16 @@ void MainWindow::connectTo()
 {
 	if (tcpSocket->state() == QAbstractSocket::UnconnectedState)
 	{
-		qDebug() << __FUNCTION__ << "verbinde";
 		tcpSocket->connectToHost(QHostAddress(ip), port.toInt());
 		pbConnect->setText("versuche zu verbinden...");
 		pbConnect->setDisabled(true);
+
+
 	}
 
 	if (tcpSocket->state() == QAbstractSocket::ConnectedState)
 	{
-		qDebug() << __FUNCTION__ << "BEENDEN";
-		tcpSocket->close();
+        tcpSocket->close();
 		pbConnect = new QPushButton("Verbinde");
 	}
 
@@ -129,7 +135,6 @@ void MainWindow::connectTo()
 
 void MainWindow::tcpChanged(QAbstractSocket::SocketState state)
 {
-	qDebug() << __FUNCTION__ ;
 	if (state == QAbstractSocket::UnconnectedState)
 	{
 		qDebug() << state;
@@ -153,7 +158,6 @@ void MainWindow::tcpChanged(QAbstractSocket::SocketState state)
 
 void MainWindow::setConnected(bool state)
 {
-	qDebug() << __FUNCTION__;
 	pbUp->setEnabled(state);
 	pbDown->setEnabled(state);
 	pbLeft->setEnabled(state);
@@ -163,26 +167,26 @@ void MainWindow::setConnected(bool state)
 
 void MainWindow::slotUp()
 {
-    tcpSocket->write("v\n");
+    tcpSocket->write("vor\n");
 }
 
 void MainWindow::slotDown()
 {
-	tcpSocket->write("b\n");
+    tcpSocket->write("back\n");
 }
 
 void MainWindow::slotLeft()
 {
-	tcpSocket->write("l\n");
+    tcpSocket->write("links\n");
 }
 
 void MainWindow::slotRight()
 {
-	tcpSocket->write("r\n");
+    tcpSocket->write("rechts\n");
 }
 
 void MainWindow::slotStop()
 {
     
-    tcpSocket->write("s\n");
+    tcpSocket->write("stop\n");
 }

@@ -10,6 +10,8 @@
 SettingsDialog::SettingsDialog(QObject *parent)
 {
 
+    Q_UNUSED(parent);
+
 	QLabel *labelIP = new QLabel("IP");
 	QLabel *labelPort = new QLabel("Port");
 
