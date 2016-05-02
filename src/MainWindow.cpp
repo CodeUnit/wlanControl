@@ -167,7 +167,7 @@ void MainWindow::setConnected(bool state)
 
 void MainWindow::slotUp()
 {
-    tcpSocket->write("vor\n");
+    tcpSocket->write("forward\n");
 }
 
 void MainWindow::slotDown()
@@ -177,12 +177,12 @@ void MainWindow::slotDown()
 
 void MainWindow::slotLeft()
 {
-    tcpSocket->write("links\n");
+    tcpSocket->write("left\n");
 }
 
 void MainWindow::slotRight()
 {
-    tcpSocket->write("rechts\n");
+    tcpSocket->write("right\n");
 }
 
 void MainWindow::slotStop()
