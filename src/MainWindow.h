@@ -39,9 +39,11 @@ private:
 	SettingsDialog dialog;
 	QTcpSocket *tcpSocket;
 
-	QString ip, port;
     QVBoxLayout *mainLayout;
     QPushButton *pbExit, *pbUp, *pbDown, *pbLeft, *pbRight, *pbStop, *pbConnect;
+    QLabel *lbMsg;
+
+	QString ip, port;
     bool verbunden;
 
 
@@ -49,6 +51,7 @@ signals:
 
 
 public slots:
+    void readyRead();
 
 
 private slots:

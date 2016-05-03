@@ -14,6 +14,7 @@ MainWindow::MainWindow(QObject *parent)
 	tcpSocket = new QTcpSocket;
 	connect(tcpSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
 			this, SLOT(tcpChanged(QAbstractSocket::SocketState)));
+    connect(tcpSocket, SIGNAL(readyRead()),this, SLOT(readyRead()));
 
 
 	SettingsDialog dialog(this);
@@ -32,6 +33,8 @@ MainWindow::MainWindow(QObject *parent)
 //    fileToolBar->addAction(newAct);
 
 
+
+    lbMsg = new QLabel;
 
 
 
@@ -89,6 +92,7 @@ MainWindow::MainWindow(QObject *parent)
 
 
     mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(lbMsg);
     mainLayout->addWidget(pbConnect);
     mainLayout->addLayout(glButtons);
     mainLayout->addWidget(pbExit);
@@ -104,14 +108,11 @@ MainWindow::MainWindow(QObject *parent)
 
 void MainWindow::slotSettings()
 {
-
-
 	if (dialog.exec() == QDialog::Accepted)
 	{
 		ip = dialog.getIP();
 		port = dialog.getPort();
 	}
-	qDebug() << ip << port;
 }
 
 void MainWindow::connectTo()
@@ -119,7 +120,7 @@ void MainWindow::connectTo()
 	if (tcpSocket->state() == QAbstractSocket::UnconnectedState)
 	{
 		tcpSocket->connectToHost(QHostAddress(ip), port.toInt());
-		pbConnect->setText("versuche zu verbinden...");
+        pbConnect->setText("Verbinden...");
 		pbConnect->setDisabled(true);
 
 
@@ -128,31 +129,28 @@ void MainWindow::connectTo()
 	if (tcpSocket->state() == QAbstractSocket::ConnectedState)
 	{
         tcpSocket->close();
-		pbConnect = new QPushButton("Verbinde");
+        pbConnect->setText("Verbinde");
 	}
 
 }
 
 void MainWindow::tcpChanged(QAbstractSocket::SocketState state)
 {
-	if (state == QAbstractSocket::UnconnectedState)
+
+    if (state == QAbstractSocket::UnconnectedState)
 	{
-		qDebug() << state;
-		pbConnect->setText("Verbindung beendet");
+        pbConnect->setText("keine Verbindung");
 		pbConnect->setDisabled(false);
 		setConnected(false);
 	}
 
-	if (state == QAbstractSocket::ConnectedState)
+    if (state == QAbstractSocket::ConnectedState)
 	{
-		qDebug() << state;
-		pbConnect->setText("Verbindung beenden");
+        pbConnect->setText("Verbindung beenden");
 		pbConnect->setDisabled(false);
 		setConnected(true);
-		pbConnect->setText("Verbindung beenden");
+
 	}
-
-
 
 }
 
@@ -189,4 +187,9 @@ void MainWindow::slotStop()
 {
     
     tcpSocket->write("stop\n");
+}
+
+void MainWindow::readyRead()
+{
+    lbMsg->setText(tcpSocket->readAll());
 }
