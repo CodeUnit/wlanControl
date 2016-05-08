@@ -35,6 +35,8 @@ MainWindow::MainWindow(QObject *parent)
 
 
     lbMsg = new QLabel;
+    lbMsg->setWordWrap(true);
+    lbMsg->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 
 
 
@@ -75,13 +77,14 @@ MainWindow::MainWindow(QObject *parent)
 
 
     QGridLayout *glButtons = new QGridLayout;
-    glButtons->addWidget(pbUp,    0, 1);
-    glButtons->addWidget(pbLeft,  1, 0);
-    glButtons->addWidget(pbStop,  1, 1);
-    glButtons->addWidget(pbRight, 1, 2);
-    glButtons->addWidget(pbDown,  2, 1);
+    glButtons->addWidget(lbMsg, 0, 0);
+    glButtons->addWidget(pbUp,    1, 1);
+    glButtons->addWidget(pbLeft,  2, 0);
+    glButtons->addWidget(pbStop,  2, 1);
+    glButtons->addWidget(pbRight, 2, 2);
+    glButtons->addWidget(pbDown,  3, 1);
 
-
+    lbMsg->setText("Hallo");
 
     pbConnect = new QPushButton("Verbinde");
     connect(pbConnect, SIGNAL(clicked()), this, SLOT(connectTo()));
@@ -89,12 +92,10 @@ MainWindow::MainWindow(QObject *parent)
     pbExit = new QPushButton("Exit");
     connect(pbExit, SIGNAL(clicked(bool)), this, SLOT(close()));
 
-
-
     mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(lbMsg);
+//    mainLayout->addWidget(lbMsg);
+    mainLayout->addLayout(glButtons, 2);
     mainLayout->addWidget(pbConnect);
-    mainLayout->addLayout(glButtons);
     mainLayout->addWidget(pbExit);
 
     QGroupBox *gridLayout = new QGroupBox;
