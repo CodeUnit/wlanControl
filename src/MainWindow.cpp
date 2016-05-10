@@ -11,6 +11,8 @@ MainWindow::MainWindow(QObject *parent)
 {
     Q_UNUSED(parent);
 
+    touchWdg = new TouchWidget;
+
 	tcpSocket = new QTcpSocket;
 	connect(tcpSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
 			this, SLOT(tcpChanged(QAbstractSocket::SocketState)));
@@ -77,12 +79,13 @@ MainWindow::MainWindow(QObject *parent)
 
 
     QGridLayout *glButtons = new QGridLayout;
-    glButtons->addWidget(lbMsg, 0, 0);
+    glButtons->addWidget(lbMsg, 0, 0, 1, 3);
     glButtons->addWidget(pbUp,    1, 1);
     glButtons->addWidget(pbLeft,  2, 0);
     glButtons->addWidget(pbStop,  2, 1);
     glButtons->addWidget(pbRight, 2, 2);
     glButtons->addWidget(pbDown,  3, 1);
+    glButtons->addWidget(touchWdg, 4, 0, 5, 3);
 
     lbMsg->setText("Hallo");
 
@@ -95,6 +98,7 @@ MainWindow::MainWindow(QObject *parent)
     mainLayout = new QVBoxLayout;
 //    mainLayout->addWidget(lbMsg);
     mainLayout->addLayout(glButtons, 2);
+//    mainLayout->addWidget(touchWdg);
     mainLayout->addWidget(pbConnect);
     mainLayout->addWidget(pbExit);
 
@@ -104,6 +108,7 @@ MainWindow::MainWindow(QObject *parent)
 
     setCentralWidget(gridLayout);
 
+    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 }
 
 

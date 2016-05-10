@@ -26,6 +26,9 @@
 
 
 #include "SettingsDialog.h"
+#include "TouchWidget.h"
+
+
 
 class MainWindow : public QMainWindow
 {
@@ -42,6 +45,7 @@ private:
     QVBoxLayout *mainLayout;
     QPushButton *pbExit, *pbUp, *pbDown, *pbLeft, *pbRight, *pbStop, *pbConnect;
     QLabel *lbMsg;
+    TouchWidget *touchWdg;
 
 	QString ip, port;
     bool verbunden;
